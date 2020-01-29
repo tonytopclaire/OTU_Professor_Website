@@ -1,0 +1,223 @@
+﻿<%@ Master Language="VB" AutoEventWireup="true" CodeFile="Site.master.vb" Inherits="SiteMaster" %>
+
+<!DOCTYPE html>
+<html lang="en">
+<head runat="server">
+	<meta charset="utf-8" />
+	<title><%: Page.Title %>&nbsp;-Julie Thorp</title>
+	<%--	CSS Style References--%>
+	<link href="~/Content/style.css" rel="stylesheet" />
+	<link href="~/content/bootstrap.css" rel="stylesheet" />
+	<link href="~/content/style.css" rel="stylesheet" />
+	<link href="~/content/mobile.css" rel="stylesheet" />
+	<!-- font-icons -->
+	<link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+	<link href="~/content/font-awesome.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Gidugu" rel="stylesheet">
+	<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
+	<link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+	<meta name="viewport" content="width=device-width"/>
+	<!-- js -->
+	<asp:PlaceHolder runat="server">
+		<script src="<%: ResolveUrl("~/Scripts/modernizr-2.6.2.js") %>"></script>
+	</asp:PlaceHolder>
+	<asp:ContentPlaceHolder runat="server" ID="HeadContent" />
+</head>
+<body>
+	<form runat="server">
+		<asp:ScriptManager runat="server">
+			<Scripts>
+				<asp:ScriptReference Name="jquery" />
+				<asp:ScriptReference Name="jquery.ui.combined" />
+				<asp:ScriptReference Path="js/jquery.tools.min.js" />
+				<asp:ScriptReference Path="js/jquery.mobile.custom.min.js" />
+				<asp:ScriptReference Path="js/jquery-2.2.3.min.js" />
+				<asp:ScriptReference Path="js/bootstrap.js" />
+				<asp:ScriptReference Path="js/move-top.js" />
+				<asp:ScriptReference Path="js/easing.js" />
+				<asp:ScriptReference Path="Scripts/Site.js" />
+			</Scripts>
+		</asp:ScriptManager>
+		<header>
+			<asp:AccessDataSource
+				ID="ADSContact"
+				runat="server"
+				DataSourceMode="DataSet"
+				DataFile="~/App_LocalResources/value.mdb"
+				SelectCommand="SELECT * FROM Contact"></asp:AccessDataSource>
+			<div class="content-wrapper">
+				<div class="w3_navigation" id="ancher">
+					<div class="container">
+						<nav class="navbar navbar-default">
+							<!-- Brand and toggle get grouped for better mobile display -->
+							<div class="navbar-header">
+								<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+									<span class="sr-only">Toggle navigation</span>
+									<span class="icon-bar"></span>
+									<span class="icon-bar"></span>
+									<span class="icon-bar"></span>
+								</button>
+								<div class="logo">
+									<h2><a class="navbar-brand" runat="server" href="~/default.aspx"><span class="one">INFR 3120</span>-Group 7</a></h2>
+								</div>
+							</div>
+							<div class="collapse navbar-collapse nav-wil" id="bs-example-navbar-collapse-1">
+								<nav class="navbar navbar-default">
+									<nav class="cl-effect-1" id="cl-effect-1">
+										<ul class="nav navbar-nav">
+											<li><a runat="server" href="~/">Home</a></li>
+											<li><a runat="server" href="~/pub">Publications</a></li>
+											<li><a runat="server" href="~/research">Research Interest</a></li>
+											<li><a runat="server" href="~/pstudents">Prospective Students</a></li>
+											<li><a runat="server" href="~/services">Services</a></li>
+											<li><a runat="server" href="~/group">Group</a></li>
+											<li><a runat="server" href="~/contact">Contact</a></li>
+										</ul>
+									</nav>
+									<!-- /.navbar-collapse -->
+								</nav>
+							</div>
+						</nav>
+					</div>
+					<%--			 <%--Login & Register Section--%>
+					<div class="section-fix-right">
+						<section id="login">
+							<asp:LoginView runat="server" ViewStateMode="Disabled">
+								<AnonymousTemplate>
+										<a id="loginLink" runat="server" href="~//Account/Login" class="btn btn-info">Log in</a>
+										<a id="registerLink" runat="server" href="~/Account/Register" class="btn btn-info">Register</a>
+								</AnonymousTemplate>
+								<LoggedInTemplate>
+									<p>
+										Hello, <a runat="server" class="username" href="~//Account/Manage" title="Manage your account">
+											<asp:LoginName runat="server" CssClass="username" />
+										</a>!
+                                <asp:LoginStatus runat="server" LogoutAction="Redirect" LogoutText="Log off" LogoutPageUrl="~/" />
+									</p>
+								</LoggedInTemplate>
+							</asp:LoginView>
+						</section>
+					</div>
+					<%--Login & Register Section--%>
+				</div>
+			</div>
+			<script type="text/javascript">
+				jQuery(document).ready(function ($) {
+					$(".scroll").click(function (event) {
+						event.preventDefault();
+						$('html,body').animate({ scrollTop: $(this.hash).offset().top }, 1000);
+					});
+				});
+			</script>
+			<script type="text/javascript">
+				$(document).ready(function () {
+
+					var defaults = {
+						containerID: 'toTop', // fading element id
+						containerHoverID: 'toTopHover', // fading element hover id
+						scrollSpeed: 1200,
+						easingType: 'linear'
+					};
+
+					$().UItoTop({ easingType: 'easeOutQuart' });
+				});
+			</script>
+		</header>
+		<div id="body">
+			<asp:ContentPlaceHolder runat="server" ID="FeaturedContent" />
+			<section class="content-wrapper main-content clear-fix">
+				<asp:ContentPlaceHolder runat="server" ID="MainContent" />
+			</section>
+		</div>
+		<footer>
+			<div class="w3l_footer">
+				<div class="container">
+					<div class="w3ls_footer_grids">
+						<div class="w3ls_footer_grid">
+							<div class="col-md-4 w3ls_footer_grid_left">
+								<div class="w3ls_footer_grid_leftl">
+									<i class="fa fa-map-marker" aria-hidden="true"></i>
+								</div>
+								<div class="w3ls_footer_grid_leftr text-center">
+									<h4>Location</h4>
+									<asp:FormView ID="FormView1"
+										runat="server"
+										DataKeyNames="ID"
+										DataSourceID="ADSContact"
+										CssClass="aspnet100">
+										<ItemTemplate>
+											<p class="aspText">
+												<asp:Label
+													ID="addressLabel"
+													runat="server"
+													Text='<%# Bind("address") %>' />
+											</p>
+										</ItemTemplate>
+									</asp:FormView>
+								</div>
+								<div class="clearfix"></div>
+							</div>
+							<div class="col-md-4 w3ls_footer_grid_left">
+								<div class="w3ls_footer_grid_leftl">
+									<i class="fa fa-envelope" aria-hidden="true"></i>
+								</div>
+								<div class="w3ls_footer_grid_leftr">
+									<h4>Email</h4>
+									<asp:FormView
+										ID="FormView2"
+										runat="server"
+										DataKeyNames="ID"
+										DataSourceID="ADSContact"
+										CssClass="aspnet100">
+										<ItemTemplate>
+											<p class="aspText">
+												<asp:Label
+													ID="emailLabel"
+													runat="server"
+													Text='<%# Bind("email") %>' />
+											</p>
+											<br />
+										</ItemTemplate>
+									</asp:FormView>
+								</div>
+								<div class="clearfix"></div>
+							</div>
+							<div class="col-md-4 w3ls_footer_grid_left">
+								<div class="w3ls_footer_grid_leftl">
+									<i class="fa fa-phone" aria-hidden="true"></i>
+								</div>
+								<div class="w3ls_footer_grid_leftr text-center">
+									<h4>Call Us</h4>
+									<asp:FormView ID="FormView3"
+										runat="server"
+										DataKeyNames="ID"
+										DataSourceID="ADSContact"
+										CssClass="aspnet100">
+										<ItemTemplate>
+											<p>
+												<asp:Label
+													ID="phoneLabel"
+													runat="server"
+													Text='<%# Bind("phoneNumber") %>' />
+											</p>
+											<br />
+										</ItemTemplate>
+									</asp:FormView>
+								</div>
+								<div class="clearfix"></div>
+							</div>
+							<div class="clearfix"></div>
+						</div>
+					</div>
+				</div>
+				<div class="w3l_footer_pos">
+					<p>&copy; 2018 Tony Wang & Anthony Mitri. All Rights Reserved</p>
+				</div>
+			</div>
+		</footer>
+	</form>
+</body>
+</html>
+
+
+
