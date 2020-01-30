@@ -1,2 +1,2 @@
-# INFR3120UProject2
-A personal website project for an OTU professor.
+# INFR3120U Project2
+## A website project for an OTU professor.
